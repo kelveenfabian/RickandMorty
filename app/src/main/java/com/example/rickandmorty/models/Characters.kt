@@ -6,10 +6,11 @@ data class Characters(
     @SerializedName("info")
     val info: Info,
     @SerializedName("results")
-    val results: List<Character>
+    val rickAndMortyCharacters: List<RickAndMortyCharacter>
 )
 
-data class Character(
+// Why do all of the properties in the classes below have default values? Is this a limitation of Gson?
+data class RickAndMortyCharacter(
     @SerializedName("id")
     val id: Int = 0,
     @SerializedName("name")
