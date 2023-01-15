@@ -1,31 +1,23 @@
 package com.example.rickandmorty.data.remote
 
-import com.example.rickandmorty.models.Character
 import com.example.rickandmorty.models.Characters
-import kotlinx.coroutines.delay
+import com.example.rickandmorty.models.RickAndMortyCharacter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 class CharactersRemoteDataSource(
-    private val charactersApi: CharactersApi,
-    private val refreshIntervalMs: Long = 5000
+    private val charactersApi: CharactersApi
 ) {
-    val characters: Flow<Characters> = flow {
-        while(true) {
-            val characters = charactersApi.fetchCharacters()
-            emit(characters)
-            delay(refreshIntervalMs)
-        }
+    fun getCharacters(): Flow<Characters> = flow {
+        val characters = charactersApi.fetchCharacters()
+        emit(characters)
     }
 
-    fun character(id: Int): Flow<Character> = flow {
-        while(true) {
-            val character = charactersApi.fetchCharacter(id)
-            emit(character)
-            delay(refreshIntervalMs)
-        }
+    fun character(id: Int): Flow<RickAndMortyCharacter> = flow {
+        val character = charactersApi.fetchCharacter(id)
+        emit(character)
     }
 }
 
@@ -34,5 +26,5 @@ interface CharactersApi {
     suspend fun fetchCharacters(): Characters
 
     @GET("character/{id}")
-    suspend fun fetchCharacter(@Path("id") id: Int): Character
+    suspend fun fetchCharacter(@Path("id") id: Int): RickAndMortyCharacter
 }
