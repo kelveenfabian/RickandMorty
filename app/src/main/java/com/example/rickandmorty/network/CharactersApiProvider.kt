@@ -4,13 +4,14 @@ import com.example.rickandmorty.data.remote.CharactersApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object RetrofitBuilder {
+object CharactersApiProvider {
     private const val BASE_URL = "https://rickandmortyapi.com/api/"
 
-    private fun getRetrofit(): Retrofit = Retrofit.Builder()
+    private fun createCharactersApi(): CharactersApi = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
+        .create(CharactersApi::class.java)
 
-    val charactersApi: CharactersApi = getRetrofit().create(CharactersApi::class.java)
+    val charactersApi: CharactersApi by lazy { createCharactersApi() }
 }
