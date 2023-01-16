@@ -6,10 +6,10 @@ data class Characters(
     @SerializedName("info")
     val info: Info,
     @SerializedName("results")
-    val results: List<Character>
+    val rickAndMortyCharacters: List<RickAndMortyCharacter>
 )
 
-data class Character(
+data class RickAndMortyCharacter(
     @SerializedName("id")
     val id: Int = 0,
     @SerializedName("name")
